@@ -1,8 +1,12 @@
 from fastapi import FastAPI
-from schema import Song
+from schema import Song, Artist
+from typing import Optional, List
+import models
+from database import SessionLocal
 
 app = FastAPI()
 
+db = SessionLocal()
 
 # Project root endpoint
 @app.get('/')
@@ -12,9 +16,10 @@ async def root():
 ##### Songs #####
 
 # Retrieve all songs
-@app.get('/songs')
+@app.get('/songs', response_model=List[Song], status_code=200)
 def get_songs():
-    pass
+    songs = db.query(models.Song).all()
+    return songs
 
 # Retrieve a single song
 @app.get('/song/{song_id}')
