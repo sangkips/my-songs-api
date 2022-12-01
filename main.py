@@ -45,9 +45,10 @@ def delete_a_song(song_id:int):
 ##### Artist ######
 
 # Retrieve all Artists
-@app.get('/artists')
+@app.get('/artists', response_model=List[Artist], status_code=200)
 def get_all_artists():
-    pass
+    artists = db.query(models.Artist).all()
+    return artists
 
 # Retrieve a single Artist
 @app.get('/artist/{artist_id}')
