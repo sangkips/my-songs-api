@@ -1,5 +1,5 @@
 from database import Base
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import relationship
 
 
@@ -17,7 +17,7 @@ class Song(Base):
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, index=True)
     year = Column(Integer, index=True)
-    description = Column(String, index=True)
+    description = Column(Text, index=True)
     artist_id = Column(Integer, ForeignKey('artists.id'))
 
     artist = relationship('Artist', back_populates='songs')

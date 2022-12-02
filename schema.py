@@ -1,6 +1,8 @@
 from pydantic import BaseModel
+from typing import Optional
 
 class Song(BaseModel):
+    id: int
     title: str
     year: int
     description: str | None = None

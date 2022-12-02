@@ -24,7 +24,7 @@ def get_songs():
 # Retrieve a single song
 @app.get('/song/{song_id}', response_model=Song, status_code=status.HTTP_200_OK)
 def get_one_song(song_id:int):
-    song = db.query(models.Song).get(song_id)
+    song = db.query(models.Song).filter(models.Song.id==song_id).first()
     return song
 
 # Create a song
@@ -61,7 +61,8 @@ def get_all_artists():
 # Retrieve a single Artist
 @app.get('/artist/{artist_id}')
 def get_one_artist(artist_id:int):
-    pass
+    artist = db.query(models.Artist).filter(models.Artist.id==artist_id).first()
+    return artist
 
 # Add an Artist
 @app.post('/Add_artist', response_model=Artist, status_code=status.HTTP_201_CREATED)
