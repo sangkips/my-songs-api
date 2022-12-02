@@ -2,7 +2,6 @@ from pydantic import BaseModel
 
 class Song(BaseModel):
     title: str
-    artist: str
     year: int
     description: str | None = None
     artist_id: int
