@@ -18,6 +18,7 @@ class Song(Base):
     title = Column(String, index=True)
     year = Column(Integer, index=True)
     description = Column(Text, index=True)
+
     artist_id = Column(Integer, ForeignKey('artists.id'))
 
     artist = relationship('Artist', back_populates='songs')

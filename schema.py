@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional
+
 
 class Song(BaseModel):
     id: int
@@ -8,10 +8,12 @@ class Song(BaseModel):
     description: str | None = None
     artist_id: int
 
-    class Config: # provides configuration to pydantic
+    class Config:  # provides configuration to pydantic
         orm_mode = True
 
+
 class Artist(BaseModel):
+    id: int
     name: str
 
     class Config:
