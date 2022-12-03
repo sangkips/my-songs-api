@@ -11,7 +11,7 @@ db = SessionLocal()
 # Project root endpoint
 
 
-@app.get('/')
+@app.get('/', tags=['Get'])
 async def root():
     return {'Message': 'Welcome to my Songs Library'}
 
@@ -20,7 +20,7 @@ async def root():
 # Retrieve all songs
 
 
-@app.get('/songs', response_model=List[Song], status_code=status.HTTP_200_OK)
+@app.get('/songs', tags=['Get'], response_model=List[Song], status_code=status.HTTP_200_OK)
 def get_all_songs():
     songs = db.query(models.Song).all()
     return songs
@@ -28,7 +28,7 @@ def get_all_songs():
 # Retrieve a single song
 
 
-@app.get('/song/{song_id}', response_model=Song, status_code=status.HTTP_200_OK)
+@app.get('/song/{song_id}', tags=['Get'], response_model=Song, status_code=status.HTTP_200_OK)
 def get_one_song(song_id: int):
     song = db.query(models.Song).filter(models.Song.id == song_id).first()
     return song
@@ -36,7 +36,7 @@ def get_one_song(song_id: int):
 # Create a song
 
 
-@app.post('/create_song', response_model=Song, status_code=status.HTTP_201_CREATED)
+@app.post('/create_song', tags=['Post'], response_model=Song, status_code=status.HTTP_201_CREATED)
 def create_a_song(song: Song):
     new_song = models.Song(title=song.title, year=song.year,
                            description=song.description, artist_id=song.artist_id)
@@ -51,7 +51,7 @@ def create_a_song(song: Song):
 # Update a song
 
 
-@app.put('/update_song/song_id', response_model=Song, status_code=status.HTTP_200_OK)
+@app.put('/update_song/song_id', tags=['Put'], response_model=Song, status_code=status.HTTP_200_OK)
 def update_a_song(song_id: int, song: Song):
     song_to_be_updated = db.query(models.Song).filter(
         models.Song.id == song_id).first()
@@ -67,7 +67,7 @@ def update_a_song(song_id: int, song: Song):
 # delete a song from database
 
 
-@app.delete('/song/{song_id}')
+@app.delete('/song/{song_id}', tags=['Delete'],)
 def delete_a_song(song_id: int):
     song_to_be_deleted = db.query(models.Song).filter(
         models.Song.id == song_id).first()
@@ -82,7 +82,7 @@ def delete_a_song(song_id: int):
 ##### Artist ######
 
 # Retrieve all Artists
-@app.get('/artists', response_model=List[Artist], status_code=200)
+@app.get('/artists', tags=['Get'], response_model=List[Artist], status_code=status.HTTP_200_OK)
 def get_all_artists():
     artists = db.query(models.Artist).all()
     return artists
@@ -90,7 +90,7 @@ def get_all_artists():
 # Retrieve a single Artist
 
 
-@app.get('/artist/{artist_id}')
+@app.get('/artist/{artist_id}', tags=['Get'], response_model=Artist, status_code=status.HTTP_200_OK)
 def get_one_artist(artist_id: int):
     artist = db.query(models.Artist).filter(
         models.Artist.id == artist_id).first()
@@ -99,7 +99,7 @@ def get_one_artist(artist_id: int):
 # Add an Artist
 
 
-@app.post('/Add_artist', response_model=Artist, status_code=status.HTTP_201_CREATED)
+@app.post('/Add_artist', tags=['Post'], response_model=Artist, status_code=status.HTTP_201_CREATED)
 def create_an_artist(artist: Artist):
     new_artist = models.Artist(name=artist.name)
 
@@ -110,7 +110,7 @@ def create_an_artist(artist: Artist):
 # Update an Artist
 
 
-@app.put('/update_artist/artist_id', response_model=Artist, status_code=status.HTTP_200_OK)
+@app.put('/update_artist/artist_id', tags=['Put'], response_model=Artist, status_code=status.HTTP_200_OK)
 def update_an_artist(artist_id: int, artist: Artist):
     artist_to_be_updated = db.query(models.Artist).filter(
         models.Artist.id == artist_id).first()
@@ -122,7 +122,7 @@ def update_an_artist(artist_id: int, artist: Artist):
 # Delete an Artist fro db
 
 
-@app.delete('/artist/{artist_id}')
+@app.delete('/artist/{artist_id}', tags=['Delete'],)
 def delete_an_artist(artist_id: int):
     artist_to_be_deleted = db.query(models.Artist).filter(
         models.Artist.id == artist_id).first()
