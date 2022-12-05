@@ -1,8 +1,8 @@
 from fastapi import FastAPI, status, HTTPException
-from schema import Song, Artist
+from app.schema import Song, Artist
 from typing import Optional, List
-import models
-from database import SessionLocal
+import app.models as models
+from app.database import SessionLocal
 
 app = FastAPI()
 
